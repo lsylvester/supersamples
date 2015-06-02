@@ -38,4 +38,15 @@ describe('sample', function() {
     });
   });
 
+  it('should not inherit the supersamples from the previous spec', function(done) {
+    var test = this.test;
+    request(server)
+    .get('/foo')
+    .end(function(err, res) {
+      var s = sample.create(test, capture.get().request, capture.get().response);
+      s.should.have.property('name','should not inherit the supersamples from the previous spec');
+      done();
+    });
+  });
+
 });
